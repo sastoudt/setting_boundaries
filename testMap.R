@@ -1,15 +1,18 @@
 #https://stackoverflow.com/questions/48858581/get-coordinates-from-a-drawing-object-from-an-r-leaflet-map
 library(leaflet.extras)
-
+library(rlist)
 # Define UI 
 ui <- fluidPage(
-  leafletOutput("mymap",height=800)
+  leafletOutput("mymap",height=800), 
+  downloadButton("downloadData", "Download")
+  
 )
 
 # Define server logic 
 server <- function(input, output) {
   
- 
+  store = vector("list",0)
+
   
   output$mymap <- renderLeaflet(
     leaflet() %>%
@@ -24,10 +27,22 @@ server <- function(input, output) {
   
   observeEvent(input$mymap_draw_new_feature,{
     feature <- input$mymap_draw_new_feature
-    
-    print(feature)
-    
+    store = list.append(store, feature)
+    print(store)
+
   })
+  
+ 
+  
+  output$downloadData <- downloadHandler(
+    filename = function() {
+      paste("mydata", ".rds", sep = "")
+    },
+    content = function(file) {
+      saveRDS(store, file)
+    }
+  )
+  
   
 }
 
