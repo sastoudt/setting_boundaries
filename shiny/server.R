@@ -1,7 +1,7 @@
 library(leaflet.extras)
 library(sp)
 library(rgdal)
-library(sf)
+#library(sf)
 
 server <- function(input, output) {
   
