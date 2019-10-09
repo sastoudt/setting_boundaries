@@ -1,5 +1,5 @@
 library(shiny)
-library(shinyjs)
+#library(shinyjs)
 wd = "" # put path to shiny directory here
 setwd(wd)
 
