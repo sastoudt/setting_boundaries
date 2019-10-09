@@ -3,6 +3,9 @@ library(leaflet.extras)
 library(rlist)
 # Define UI 
 ui <- fluidPage(
+  radioButtons("city", h4("Choose your region"),
+               choices = list("NYC" = 1, "Bay Area" = 2),selected = 1),
+  h4("Draw shapes of where you are willing to go. Note: the maps are zoomable. Click `Download` when finished."),
   leafletOutput("mymap",height=800), 
   downloadButton("downloadData", "Download")
   
@@ -15,14 +18,30 @@ server <- function(input, output) {
 
   
   output$mymap <- renderLeaflet(
-    leaflet() %>%
-      addTiles() %>%
-      setView(-74.00, 40.71, zoom = 12) %>%
-      addDrawToolbar(
-        targetGroup='draw',
-        editOptions = editToolbarOptions(selectedPathOptions = selectedPathOptions()))  %>%
-      addLayersControl(overlayGroups = c('draw'), options =
-                         layersControlOptions(collapsed=FALSE))
+    
+    if(input$city==2){
+      leaflet() %>%
+        addTiles() %>%
+        #setView(-74.00, 40.71, zoom = 12) %>%
+        setView(-122.2, 37.6, zoom = 10) %>%
+        addDrawToolbar(
+          targetGroup='draw',
+          editOptions = editToolbarOptions(selectedPathOptions = selectedPathOptions()))  %>%
+        addLayersControl(overlayGroups = c('draw'), options =
+                           layersControlOptions(collapsed=FALSE))
+      
+    }else{
+      leaflet() %>%
+        addTiles() %>%
+        setView(-74.00, 40.71, zoom = 12) %>%
+        #setView(-122.2, 37.6, zoom = 10) %>%
+        addDrawToolbar(
+          targetGroup='draw',
+          editOptions = editToolbarOptions(selectedPathOptions = selectedPathOptions()))  %>%
+        addLayersControl(overlayGroups = c('draw'), options =
+                           layersControlOptions(collapsed=FALSE))
+    }
+    
   )
   
   observeEvent(input$mymap_draw_new_feature,{
