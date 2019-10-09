@@ -1,0 +1,6 @@
+install.packages("shiny")
+install.packages("shinyjs")
+install.packages("leaflet.extras")
+install.packages("sp")
+install.packages("rgdal")
+install.packages("sf")
