@@ -1,11 +1,9 @@
 library(leaflet.extras)
-library(rlist)
 library(sp)
 library(rgdal)
 library(sf)
 
 server <- function(input, output) {
-  store <- c()
   
   
   output$mymap <- renderLeaflet(
