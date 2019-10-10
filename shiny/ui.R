@@ -1,4 +1,4 @@
-library(leaflet)
+
 
 ui <- fluidPage(
   radioButtons("city", h4("Choose your region"),

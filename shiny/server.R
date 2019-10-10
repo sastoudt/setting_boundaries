@@ -1,8 +1,4 @@
-library(leaflet.extras)
-library(sp)
-#library(rgdal)
-#library(sf)
-library(maptools)
+
 
 server <- function(input, output) {
   
