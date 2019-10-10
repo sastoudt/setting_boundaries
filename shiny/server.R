@@ -1,7 +1,8 @@
 library(leaflet.extras)
 library(sp)
 #library(rgdal)
-library(sf)
+#library(sf)
+library(maptools)
 
 server <- function(input, output) {
   
@@ -108,7 +109,7 @@ server <- function(input, output) {
       }
       
       proj4string(value$drawnPoly) <- "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"
-      st_write(st_as_sf(value$drawnPoly), dsn = "shpExport.shp", layer = "shpExport", driver = "ESRI Shapefile")
+      writeSpatialShape(value$drawnPoly, fn = "shpExport.shp")
       zip(zipfile = "shpExport.zip", files = Sys.glob("shpExport.*"))
       file.copy("shpExport.zip", file)
       if (length(Sys.glob("shpExport.*")) > 0) {
